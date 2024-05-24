@@ -17,6 +17,7 @@ export function Auth() {
   return (
     <div className={styles.container}>
       <h1>Carregando...</h1>
+      <p>{JSON.stringify(userData, null, 2)}</p>
     </div>
   );
 }
