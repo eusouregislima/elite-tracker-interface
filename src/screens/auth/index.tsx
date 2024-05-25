@@ -8,8 +8,6 @@ export function Auth() {
   const [searchParams] = useSearchParams();
   const { userData, getUserInfo } = useUser();
 
-  console.log(userData);
-
   useEffect(() => {
     getUserInfo(String(searchParams.get('code')));
   }, []);
