@@ -24,8 +24,6 @@ type UserProviderProps = {
   children: ReactNode;
 };
 
-// adicionando o export
-// apertando o f2 e trocando o nome em todos os lugares
 export const userLocalStorageKey = `${import.meta.env.VITE_LOCALSTORAGE_KEY}: UserData`;
 
 const UserContext = createContext<UserContextProps>({} as UserContextProps);
