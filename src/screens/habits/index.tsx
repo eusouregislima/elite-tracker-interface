@@ -2,7 +2,7 @@ import { PaperPlaneRight, Trash } from '@phosphor-icons/react';
 import dayjs from 'dayjs';
 import { useEffect, useRef, useState } from 'react';
 
-import { Sidebar } from '../../components/sidebar';
+import { Header } from '../../components/header';
 import { api } from '../../services/api';
 import styles from './styles.module.css';
 
@@ -56,49 +56,37 @@ export function Habits() {
   }, []);
 
   return (
-    <div className={styles.app}>
-      <Sidebar />
-
-      <div className={styles.container}>
-        <div className={styles.content}>
-          <header>
-            <h1>Hábitos diários</h1>
-            <span>
-              {`Hoje,  ${new Intl.DateTimeFormat('pt-BR', {
-                dateStyle: 'long',
-                timeZone: 'America/Sao_Paulo',
-              }).format(new Date())}`}
-            </span>
-          </header>
-          <div className={styles.input}>
-            <input
-              ref={nameInput}
-              placeholder="Digite aqui um novo hábito"
-              type="text"
-            />
-            <PaperPlaneRight onClick={handleSubmit} />
-          </div>
-          <div className={styles.habits}>
-            {habits.map((item) => (
-              <div key={item._id} className={styles.habit}>
-                <p>{item.name}</p>
-                <div>
-                  <input
-                    type="checkbox"
-                    checked={item.completedDates.some((item) => item === today)}
-                    onChange={async () => {
-                      await handleToggle(item._id);
-                    }}
-                  />
-                  <Trash
-                    onClick={async () => {
-                      await handleRemove(item._id);
-                    }}
-                  />
-                </div>
+    <div className={styles.container}>
+      <div className={styles.content}>
+        <Header title="Hábitos Diários" />
+        <div className={styles.input}>
+          <input
+            ref={nameInput}
+            placeholder="Digite aqui um novo hábito"
+            type="text"
+          />
+          <PaperPlaneRight onClick={handleSubmit} />
+        </div>
+        <div className={styles.habits}>
+          {habits.map((item) => (
+            <div key={item._id} className={styles.habit}>
+              <p>{item.name}</p>
+              <div>
+                <input
+                  type="checkbox"
+                  checked={item.completedDates.some((item) => item === today)}
+                  onChange={async () => {
+                    await handleToggle(item._id);
+                  }}
+                />
+                <Trash
+                  onClick={async () => {
+                    await handleRemove(item._id);
+                  }}
+                />
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>

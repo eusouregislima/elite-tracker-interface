@@ -14,6 +14,10 @@
 }
 
 .links {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
   margin-top: 46px;
 }
 
@@ -24,7 +28,7 @@
 .links a svg {
   width: 32px;
   height: 32px;
-  fill: var(--white);
+  fill: var(--light);
   transition: fill 100ms;
 }
 
@@ -43,4 +47,8 @@
 
 .signout:hover { 
   fill: var(--error-hover);
+}
+
+.active {
+  fill: var(--white) !important
 }
