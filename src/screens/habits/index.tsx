@@ -1,4 +1,5 @@
 import { PaperPlaneRight, Trash } from '@phosphor-icons/react';
+import dayjs from 'dayjs';
 import { useEffect, useRef, useState } from 'react';
 
 import { Sidebar } from '../../components/sidebar';
@@ -17,6 +18,7 @@ type Habit = {
 export function Habits() {
   const [habits, setHabits] = useState<Habit[]>([]);
   const nameInput = useRef<HTMLInputElement>(null);
+  const today = dayjs().startOf('day').toISOString();
 
   async function loadHabits() {
     const { data } = await api.get<Habit[]>('/habits');
@@ -35,6 +37,12 @@ export function Habits() {
       nameInput.current.value = '';
       await loadHabits();
     }
+  }
+
+  async function handleToggle(id: string) {
+    await api.patch(`/habits/${id}/toggle`);
+
+    await loadHabits();
   }
 
   useEffect(() => {
@@ -69,7 +77,13 @@ export function Habits() {
               <div key={item._id} className={styles.habit}>
                 <p>{item.name}</p>
                 <div>
-                  <input type="checkbox" name="" id="" />
+                  <input
+                    type="checkbox"
+                    checked={item.completedDates.some((item) => item === today)}
+                    onChange={async () => {
+                      await handleToggle(item._id);
+                    }}
+                  />
                   <Trash />
                 </div>
               </div>
