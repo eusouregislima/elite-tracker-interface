@@ -1,9 +1,25 @@
 import { PaperPlaneRight, Trash } from '@phosphor-icons/react';
+import { useRef } from 'react';
 
 import { Sidebar } from '../../components/sidebar';
+import { api } from '../../services/api';
 import styles from './styles.module.css';
 
 export function Habits() {
+  const nameInput = useRef<HTMLInputElement>(null);
+
+  async function handleSubmit() {
+    const name = nameInput.current?.value;
+
+    if (name) {
+      await api.post('/habits', {
+        name,
+      });
+
+      nameInput.current.value = '';
+    }
+  }
+
   return (
     <div className={styles.app}>
       <Sidebar />
@@ -20,8 +36,12 @@ export function Habits() {
             </span>
           </header>
           <div className={styles.input}>
-            <input placeholder="Digite aqui um novo hábito" type="text" />
-            <PaperPlaneRight />
+            <input
+              ref={nameInput}
+              placeholder="Digite aqui um novo hábito"
+              type="text"
+            />
+            <PaperPlaneRight onClick={handleSubmit} />
           </div>
           <div className={styles.habits}>
             {Array(6)
