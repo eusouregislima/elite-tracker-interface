@@ -45,6 +45,12 @@ export function Habits() {
     await loadHabits();
   }
 
+  async function handleRemove(id: string) {
+    await api.delete(`/habits/${id}`);
+
+    await loadHabits();
+  }
+
   useEffect(() => {
     loadHabits();
   }, []);
@@ -84,7 +90,11 @@ export function Habits() {
                       await handleToggle(item._id);
                     }}
                   />
-                  <Trash />
+                  <Trash
+                    onClick={async () => {
+                      await handleRemove(item._id);
+                    }}
+                  />
                 </div>
               </div>
             ))}
