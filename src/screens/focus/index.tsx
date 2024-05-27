@@ -1,4 +1,4 @@
-import { Plus } from '@phosphor-icons/react';
+import { Minus, Plus } from '@phosphor-icons/react';
 import { useRef } from 'react';
 
 import { Header } from '../../components/header';
@@ -25,6 +25,23 @@ export function Focus() {
       restInput.current.value = String(currentValue + 5);
     }
   }
+  function handleRemoveMinutes(type: 'focus' | 'rest') {
+    if (type === 'focus') {
+      const currentValue = Number(focusInput.current?.value);
+
+      if (focusInput.current && focusInput.current.value > '0') {
+        focusInput.current.value = String(currentValue - 5);
+      }
+
+      return;
+    }
+
+    const currentValue = Number(restInput.current?.value);
+
+    if (restInput.current && restInput.current.value > '0') {
+      restInput.current.value = String(currentValue - 5);
+    }
+  }
 
   return (
     <div className={styles.container}>
@@ -43,6 +60,11 @@ export function Focus() {
               type="number"
               disabled
             />
+            <Minus
+              onClick={() => {
+                handleRemoveMinutes('focus');
+              }}
+            />
           </div>
           <div className={styles.input}>
             <Plus
@@ -55,6 +77,11 @@ export function Focus() {
               placeholder="Tempo de Descanso"
               type="number"
               disabled
+            />
+            <Minus
+              onClick={() => {
+                handleRemoveMinutes('rest');
+              }}
             />
           </div>
         </div>
