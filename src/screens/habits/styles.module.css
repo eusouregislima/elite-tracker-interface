@@ -1,4 +1,6 @@
 .container {
+  display: grid;
+  grid-template-columns: 60% 1fr;
   height: 100vh;
   width: 100%;
   background-color: var(--dark-blue);
@@ -7,7 +9,6 @@
 
 .content {
   padding: 20px;
-  width: 60%;
   border-right: 1px solid var(--light);
   height: calc(100% - 40px);
 }
@@ -85,4 +86,24 @@
 .habit div svg:hover {
   fill: var(--error);
   transition: fill 100ms;
+}
+
+.metrics {
+  padding: 20px;
+}
+
+.metrics h2 {
+  font-weight: bold;
+  font-size: 24px;
+  color: var(--white);
+  margin-top: 20px;
+}
+
+.info-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 80px;
+  padding: 40px 0;
+  border-bottom: 1px solid var(--light);
 }

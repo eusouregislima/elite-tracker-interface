@@ -3,6 +3,7 @@ import dayjs from 'dayjs';
 import { useEffect, useRef, useState } from 'react';
 
 import { Header } from '../../components/header';
+import { Info } from '../../components/info';
 import { api } from '../../services/api';
 import styles from './styles.module.css';
 
@@ -87,6 +88,13 @@ export function Habits() {
               </div>
             </div>
           ))}
+        </div>
+      </div>
+      <div className={styles.metrics}>
+        <h2>Estudar Inglês</h2>
+        <div className={styles['info-container']}>
+          <Info label="23/31" value="Dias concluídos" />
+          <Info label="78%" value="Porcentagem" />
         </div>
       </div>
     </div>
