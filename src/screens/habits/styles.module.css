@@ -55,12 +55,28 @@
   align-items: center;
   justify-content: space-between;
   height: 46px;
-  border-bottom: 1px solid var(--light)
+  border-bottom: 1px solid var(--light);
+  transition: background-color 100ms;
+}
+
+.habit:hover {
+  background-color: var(--info-hover);  
+}
+
+.habit-active {
+  background-color: var(--info-hover);  
 }
 
 .habit p {
+  display: flex; 
+  align-items: center;
+  height: 100%; 
+  width: 100%;
+
   color: var(--white);
   font-size: 16px;
+
+  cursor: pointer;
 }
 
 .habit div {
@@ -106,4 +122,12 @@
   gap: 80px;
   padding: 40px 0;
   border-bottom: 1px solid var(--light);
+}
+
+.calendar-container {
+  margin-top: 40px;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
 }
