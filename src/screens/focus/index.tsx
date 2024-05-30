@@ -2,7 +2,7 @@ import { Indicator } from '@mantine/core';
 import { Calendar } from '@mantine/dates';
 import { Minus, Plus } from '@phosphor-icons/react';
 import dayjs from 'dayjs';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTimer } from 'react-timer-hook';
 
 import { Button } from '../../components/button';
@@ -51,8 +51,12 @@ export function Focus() {
   const [focusMetrics, setFocusMetrics] = useState<FocusMetrics>(
     {} as FocusMetrics,
   );
+  const [focusTimes, setFocusTimes] = useState<FocusTime[]>([]);
   const [currentMonth, setCurrentMonth] = useState<dayjs.Dayjs>(
     dayjs().startOf('month'),
+  );
+  const [currentDate, setCurrentDate] = useState<dayjs.Dayjs>(
+    dayjs().startOf('day'),
   );
 
   function addSeconds(date: Date, seconds: number) {
@@ -209,13 +213,53 @@ export function Focus() {
     setFocusMetrics(metrics || ({} as FocusMetrics));
   }
 
+  async function loadFocusTimes(currentDate: string) {
+    const { data } = await api.get<FocusTime[]>('/focus-time', {
+      params: {
+        date: currentDate,
+      },
+    });
+
+    setFocusTimes(data);
+  }
+
+  const metricsInfo = useMemo(() => {
+    const timesMetrics = focusTimes.map((item) => ({
+      timeFrom: dayjs(item.timeFrom),
+      timeTo: dayjs(item.timeTo),
+    }));
+
+    let totalTimeInMinutes = 0;
+
+    if (timesMetrics.length) {
+      for (const { timeFrom, timeTo } of timesMetrics) {
+        const diff = timeTo.diff(timeFrom, 'minutes');
+
+        totalTimeInMinutes += diff;
+      }
+    }
+
+    return {
+      timesMetrics,
+      totalTimeInMinutes,
+    };
+  }, [focusTimes]);
+
   async function handleSelectMonth(date: Date) {
     setCurrentMonth(dayjs(date));
+  }
+
+  async function handleSelectDay(date: Date) {
+    setCurrentDate(dayjs(date));
   }
 
   useEffect(() => {
     loadFocusMetrics(currentMonth.toISOString());
   }, [currentMonth]);
+
+  useEffect(() => {
+    loadFocusTimes(currentDate.toISOString());
+  }, [currentDate]);
 
   return (
     <div className={styles.container}>
@@ -298,10 +342,19 @@ export function Focus() {
         <h2>Estatísticas</h2>
         <div className={styles['info-container']}>
           <Info label={String(focusMetrics.count || 0)} value="Ciclos totais" />
-          <Info label="120 minutos" value="Tempo total de foco" />
+          <Info
+            label={`${metricsInfo.totalTimeInMinutes} minutos`}
+            value="Tempo total de foco"
+          />
         </div>
         <div className={styles['calendar-container']}>
           <Calendar
+            getDayProps={(date) => ({
+              selected: dayjs(date).isSame(currentDate),
+              onClick: async () => {
+                await handleSelectDay(date);
+              },
+            })}
             onMonthSelect={handleSelectMonth}
             onNextMonth={handleSelectMonth}
             onPreviousMonth={handleSelectMonth}
