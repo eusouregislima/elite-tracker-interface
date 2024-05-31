@@ -121,3 +121,32 @@
   align-items: center;
   justify-content: center;
 }
+
+.container-times {
+  padding-top: 10px;
+}
+
+.container-times strong {
+  color: var(--white);
+}
+
+.info-times {
+  height: 125px;
+  overFlow: auto;
+  margin-top: 10px;
+}
+
+.resumo-times {
+ margin-top: 10px;
+ display: flex;
+ flex-direction: row;
+ justify-content: space-between;
+ align-items: center;
+ padding: 0 15px 0 25px;
+}
+
+.resumo-times section {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}

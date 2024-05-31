@@ -1,6 +1,6 @@
 import { Indicator } from '@mantine/core';
 import { Calendar } from '@mantine/dates';
-import { Minus, Plus } from '@phosphor-icons/react';
+import { Minus, Plus, Timer } from '@phosphor-icons/react';
 import dayjs from 'dayjs';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTimer } from 'react-timer-hook';
@@ -364,6 +364,55 @@ export function Focus() {
             value="Tempo total de foco"
           />
         </div>
+        <div className={styles['container-times']}>
+          <strong>
+            {`${new Intl.DateTimeFormat('pt-BR', {
+              dateStyle: 'long',
+              timeZone: 'America/Sao_Paulo',
+            })
+              .format(Number(currentDate.startOf('day')))
+              .replace(/ de \d{4}/, '')}`}
+          </strong>
+
+          <div className={styles['info-times']}>
+            <div className={styles['resumo-times']}>
+              <section>
+                <Timer color="var(--info)" size={20} />
+                <span>13:00 - 13:25</span>
+              </section>
+              <label>25 minutes</label>
+            </div>
+            <div className={styles['resumo-times']}>
+              <section>
+                <Timer color="var(--info)" size={20} />
+                <span>13:00 - 13:25</span>
+              </section>
+              <label>25 minutes</label>
+            </div>
+            <div className={styles['resumo-times']}>
+              <section>
+                <Timer color="var(--info)" size={20} />
+                <span>13:00 - 13:25</span>
+              </section>
+              <label>25 minutes</label>
+            </div>
+            <div className={styles['resumo-times']}>
+              <section>
+                <Timer color="var(--info)" size={20} />
+                <span>13:00 - 13:25</span>
+              </section>
+              <label>25 minutes</label>
+            </div>
+            <div className={styles['resumo-times']}>
+              <section>
+                <Timer color="var(--info)" size={20} />
+                <span>13:00 - 13:25</span>
+              </section>
+              <label>25 minutes</label>
+            </div>
+          </div>
+        </div>
+
         <div className={styles['calendar-container']}>
           <Calendar
             getDayProps={(date) => ({

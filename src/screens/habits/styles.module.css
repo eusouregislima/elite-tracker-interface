@@ -4,13 +4,14 @@
   height: 100vh;
   width: 100%;
   background-color: var(--dark-blue);
+  overFlow: hidden;
 
 }
 
 .content {
   padding: 20px;
   border-right: 1px solid var(--light);
-  height: calc(100% - 40px);
+  height: 100%;
 }
 
 .input {
@@ -48,6 +49,9 @@
 
 .habits {
   margin-top: 40px;
+  overFlow: auto;
+  height: 65%;
+  padding-right: 15px;
 }
 
 .habit {
@@ -130,4 +134,30 @@
   width: 100%;
   align-items: center;
   justify-content: center;
+}
+
+
+.noMetrics {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 40px
+}
+
+.noMetrics img {
+  width: 300px;
+}
+
+.noHabits {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 40px;
+  height: 100%;
+}
+
+.noHabits img {
+  width: 300px;
 }
