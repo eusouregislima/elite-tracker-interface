@@ -375,41 +375,35 @@ export function Focus() {
           </strong>
 
           <div className={styles['info-times']}>
-            <div className={styles['resumo-times']}>
-              <section>
-                <Timer color="var(--info)" size={20} />
-                <span>13:00 - 13:25</span>
-              </section>
-              <label>25 minutes</label>
-            </div>
-            <div className={styles['resumo-times']}>
-              <section>
-                <Timer color="var(--info)" size={20} />
-                <span>13:00 - 13:25</span>
-              </section>
-              <label>25 minutes</label>
-            </div>
-            <div className={styles['resumo-times']}>
-              <section>
-                <Timer color="var(--info)" size={20} />
-                <span>13:00 - 13:25</span>
-              </section>
-              <label>25 minutes</label>
-            </div>
-            <div className={styles['resumo-times']}>
-              <section>
-                <Timer color="var(--info)" size={20} />
-                <span>13:00 - 13:25</span>
-              </section>
-              <label>25 minutes</label>
-            </div>
-            <div className={styles['resumo-times']}>
-              <section>
-                <Timer color="var(--info)" size={20} />
-                <span>13:00 - 13:25</span>
-              </section>
-              <label>25 minutes</label>
-            </div>
+            {focusTimes.length > 0 ? (
+              focusTimes.map((item) => (
+                <div key={item._id} className={styles['resumo-times']}>
+                  <section>
+                    <Timer color="var(--info)" size={20} />
+                    <span>{`${new Intl.DateTimeFormat('pt-BR', {
+                      timeStyle: 'short',
+                      timeZone: 'America/Sao_Paulo',
+                    }).format(
+                      Number(dayjs(item.timeFrom)),
+                    )} - ${new Intl.DateTimeFormat('pt-BR', {
+                      timeStyle: 'short',
+                      timeZone: 'America/Sao_Paulo',
+                    }).format(Number(dayjs(item.timeTo)))}`}</span>
+                  </section>
+
+                  <label>
+                    {`${dayjs(item.timeTo).diff(
+                      dayjs(item.timeFrom),
+                      'minute',
+                    )} minutos`}
+                  </label>
+                </div>
+              ))
+            ) : (
+              <div className={styles['no-times']}>
+                <p>Sem tempos de foco nesse dia!</p>
+              </div>
+            )}
           </div>
         </div>
 

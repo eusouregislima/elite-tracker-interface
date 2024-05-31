@@ -134,6 +134,8 @@
   height: 125px;
   overFlow: auto;
   margin-top: 10px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid var(--light);
 }
 
 .resumo-times {
@@ -149,4 +151,12 @@
   display: flex;
   align-items: center;
   gap: 5px;
+}
+
+
+.no-times {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
